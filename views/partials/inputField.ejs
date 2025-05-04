@@ -1,0 +1,11 @@
+<label for="<%= locals.name %>"><%= label %></label>
+<input 
+    type="<%= locals.type || 'text' %> " 
+    name="<%= locals.name %>" 
+    id="<%= locals.name %>" 
+    value="<%= locals.value %>" 
+    placeholder="<%= placeholder %>" 
+    class="<% if (locals.errors) { %>
+        <%=errors.path ||'input-field'%> 
+    <% } %>"
+>

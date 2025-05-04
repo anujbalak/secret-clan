@@ -1,0 +1,110 @@
+<%- include ('../partials/header', { title: 'Home'}) %> 
+<% function  getErrorClassName(field) { %>
+    <% if (locals.errors) { %>
+        <% errors.forEach(error => { %>
+            <% if (error.path === field) { %>
+                <%=`${error.path}-error input-error`%> 
+            <% }  %>
+        <% }); %>
+    <% } %>
+<% } %>  
+
+<main class="registration">
+    <h2 class="guide heading">Register to join the clan.</h2>
+    <form action="/registration" method="post">
+
+        <%# First name %>
+        <label for="firstname">Firstname</label>
+        <input 
+            type="text" 
+            name="firstname" 
+            id="firstname" 
+            value="<% if (locals.fallbackValues) { %><%=fallbackValues.firstname%><% } %>" 
+            placeholder="John..." 
+            class="<%getErrorClassName('firstname')%>"
+        >
+        <% if (locals.errors) { 
+            errors.forEach(error => { 
+                if (error.path === 'firstname') { %> 
+                    <p class="error"><%=error.msg %> </p>
+                <% } %>  
+            <% }); %> 
+        <% } %> 
+
+        <%# Last name %>
+        <label for="lastname">Lastname</label>
+        <input 
+            type="text" 
+            name="lastname" 
+            id="lastname" 
+            value="<% if (locals.fallbackValues) { %><%=fallbackValues.lastname%><% } %>" 
+            placeholder="...Marston" 
+            class="<%getErrorClassName('lastname')%>"
+        > 
+        <% if (locals.errors) { 
+            errors.forEach(error => { 
+                if (error.path === 'lastname') { %> 
+                    <p class="error"><%=error.msg %> </p>
+                <% } %>  
+            <% }); %> 
+        <% } %> 
+
+        <%# Email %>
+        <label for="email">email</label>
+        <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            value="<% if (locals.fallbackValues) { %><%=fallbackValues.email%><% } %>" 
+            placeholder="user@example.com" 
+            class="<%getErrorClassName('email')%>"
+        >
+        <% if (locals.errors) { 
+            errors.forEach(error => { 
+                if (error.path === 'email') { %> 
+                    <p class="error"><%=error.msg %> </p>
+                <% } %>  
+            <% }); %> 
+        <% } %> 
+
+        <%# Password %>
+        <label for="password">Password</label>
+        <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            value="" 
+            placeholder="" 
+            class="<%getErrorClassName('password')%>"
+        >
+        <% if (locals.errors) { 
+            errors.forEach(error => { 
+                if (error.path === 'password') { %> 
+                    <p class="error"><%=error.msg %> </p>
+                <% } %>  
+            <% }); %> 
+        <% } %> 
+        <%# confirm password  %>
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+            type="password" 
+            name="confirmPassword" 
+            id="confirmPassword" 
+            value="" 
+            placeholder="" 
+            class="<%getErrorClassName('confirmPassword')%>"
+        >
+        <% if (locals.errors) { 
+            errors.forEach(error => { 
+                if (error.path === 'confirmPassword') { %> 
+                    <p class="error"><%=error.msg %> </p>
+                <% } %>  
+            <% }); %> 
+        <% } %> 
+        <%- include('../partials/button', {
+            btnType: 'submit',
+            btnLabel: 'Submit'
+        }) %> 
+    </form>  
+</main>
+<%- include ('../partials/footer') %>
