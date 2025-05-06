@@ -12,6 +12,7 @@ import registrationRouter from './routes/registrationRouter.js';
 import signInRouter from './routes/sign-inRouter.js';
 import { getUserById } from './db/queries.js';
 import local from './passport/localStrategy.js';
+import logOutRouter from './routes/log-outRouter.js';
 
 
 const app = express();
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/registration', registrationRouter)
 app.use('/sign-in', signInRouter);
+app.use('/log-out', logOutRouter)
 
 passport.use(local)
 passport.serializeUser((user, done) => {
