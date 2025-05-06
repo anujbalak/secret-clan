@@ -10,7 +10,7 @@ const LocalStrategy = pkg.Strategy;
 import indexRouter from './routes/indexRouter.js';
 import registrationRouter from './routes/registrationRouter.js';
 import signInRouter from './routes/sign-inRouter.js';
-import { getUserById } from './db/queries.js';
+import { getAllMessages, getAllMessagesAndUsernames, getUserById } from './db/queries.js';
 import local from './passport/localStrategy.js';
 import logOutRouter from './routes/log-outRouter.js';
 
@@ -40,6 +40,12 @@ app.use(passport.session());
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    next();
+})
+
+app.use(async (req, res, next) => {
+    const allMessages = await getAllMessagesAndUsernames();
+    res.locals.messages = allMessages;
     next();
 })
 app.use('/', indexRouter);

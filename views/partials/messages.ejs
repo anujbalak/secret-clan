@@ -1,0 +1,16 @@
+<div class="messages">
+    <% if (locals.messages) { %>
+        <% messages.forEach(message => { %>
+            <div class="message body">
+                <h2 class="message title"><%= message.title %></h2>
+                <p class="message text"><%= message.text %></p>
+            </div>
+            <% if (locals.currentUser) { %>
+                <div class="message user">
+                    <h2 class="message username"><%= message.firstname %></h2>
+                    <p class="message timestamp"><%= message.time %></p>
+                </div>    
+            <% } %>  
+        <% }); %>     
+    <% } %>  
+</div>
