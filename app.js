@@ -1,9 +1,18 @@
 import express from 'express';
-import indexRouter from './routes/indexRouter.js';
 import 'dotenv/config'
 import path from 'node:path'
 import url from 'node:url'
+import passport from 'passport';
+import session from 'express-session';
+import pkg from 'passport-local'
+const LocalStrategy = pkg.Strategy;
+
+import indexRouter from './routes/indexRouter.js';
 import registrationRouter from './routes/registrationRouter.js';
+import signInRouter from './routes/sign-inRouter.js';
+import { getUserById } from './db/queries.js';
+import local from './passport/localStrategy.js';
+
 
 const app = express();
 
@@ -11,11 +20,43 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const viewsFolder = path.join(__dirname, 'views');
 
+
 app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
 app.set('views', viewsFolder)
 
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 14
+    }
+}))
+app.use(passport.session());
+
+
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+})
 app.use('/', indexRouter);
 app.use('/registration', registrationRouter)
+app.use('/sign-in', signInRouter);
+
+passport.use(local)
+passport.serializeUser((user, done) => {
+    done(null, user.id)
+})
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await getUserById(id)
+        done(null, user)
+    } catch (err) {
+        done(err);
+    }
+})
 
 app.listen(process.env.PORT, () => console.log('App listening at port', process.env.PORT))

@@ -1,4 +1,6 @@
 <%- include ('../partials/header', { title: 'Home'}) %> 
-
+<% if (locals.currentUser) {%>
+    <h3><%= currentUser.firstname %> </h3>
+<% } %>  
 
 <%- include ('../partials/footer') %>

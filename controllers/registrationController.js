@@ -3,10 +3,13 @@ import bcrypt from "bcryptjs"
 import { getUserByEmail, registerNewUser } from "../db/queries.js"
 
 const getRegistration = async (req, res) => {
+    if (req.user) {
+        return res.redirect('/');
+    };
     res.render('pages/registration')
 }
 
-const regFallbackValues = {
+export const regFallbackValues = {
     firstname: '',
     lastname: '',
     email: '',
@@ -54,6 +57,7 @@ const postRegistration = [
     passwordValidationChain(),
     confirmPasswordValidationChain(),
     async (req, res) => {
+
         const result = validationResult(req);
         const { firstname, lastname, email, password} = req.body;
         populateFallbackvalues({firstname, lastname, email})
@@ -63,7 +67,7 @@ const postRegistration = [
                 fallbackValues: regFallbackValues 
             })
         }
-        const hashedPassword = bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
         try {
             await registerNewUser({firstname, lastname, email, password: hashedPassword})
         } catch (error) {
@@ -73,7 +77,7 @@ const postRegistration = [
     }
 ]
 
-const populateFallbackvalues = ({firstname, lastname, email}) => {
+export const populateFallbackvalues = ({firstname, lastname, email}) => {
     regFallbackValues.firstname = firstname;
     regFallbackValues.lastname = lastname;
     regFallbackValues.email = email;
