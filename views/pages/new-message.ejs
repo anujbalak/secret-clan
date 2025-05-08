@@ -1,0 +1,54 @@
+<%- include ('../partials/header', {title: 'New Message'}) %>
+<% function  getErrorClassName(field) { %>
+    <% if (locals.errors) { %>
+        <% errors.forEach(error => { %>
+            <% if (error.path === field) { %>
+                <%=`${error.path}-error input-error`%> 
+            <% }  %>
+        <% }); %>
+    <% } %>
+<% } %>  
+    <% if (locals.currentUser.member) {%> 
+    <h2 class="heading">Send a new message</h2>
+    <main class="new-message">
+        <form action="/new-message" method="post">
+            <label for="title">Title</label>
+            <input 
+                type="text" 
+                name="title" 
+                id="title"  
+                class="<%getErrorClassName('title')%>"
+                value="<% if (locals.fallbackValues) { %><%=fallbackValues.title%><% } %>" 
+            >
+            <% if (locals.errors) { 
+                errors.forEach(error => { 
+                    if (error.path === 'title') { %> 
+                        <p class="error"><%=error.msg %> </p>
+                    <% } %>  
+                <% }); %> 
+            <% } %>
+            <label for="text">Text</label>
+            <textarea 
+                type="text" 
+                name="text" 
+                id="text" 
+                class="<%getErrorClassName('text')%>"
+                value="<% if (locals.fallbackValues) { %><%=fallbackValues.text%><% } %>" 
+            ></textarea>
+            <% if (locals.errors) { 
+            errors.forEach(error => { 
+                if (error.path === 'text') { %> 
+                    <p class="error"><%=error.msg %> </p>
+                <% } %>  
+                <% }); %> 
+            <% } %>
+            <%- include('../partials/button', {
+                btnType: 'submit',
+                btnLabel: 'Send'
+            }) %>
+        </form>
+    </main>
+    <% } else {%>
+        <h3><a href="/member">Become a member to send message</a></h3>
+    <% } %>
+<%- include ('../partials/footer') %> 

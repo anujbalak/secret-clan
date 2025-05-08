@@ -13,6 +13,9 @@ import signInRouter from './routes/sign-inRouter.js';
 import { getAllMessages, getAllMessagesAndUsernames, getUserById } from './db/queries.js';
 import local from './passport/localStrategy.js';
 import logOutRouter from './routes/log-outRouter.js';
+import newMessageRouter from './routes/newMessageRouter.js';
+import memberRouter from './routes/memberRouter.js';
+import messageRouter from './routes/messageRouter.js';
 
 
 const app = express();
@@ -25,6 +28,7 @@ const viewsFolder = path.join(__dirname, 'views');
 app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
 app.set('views', viewsFolder)
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
     secret: process.env.SECRET,
@@ -51,7 +55,10 @@ app.use(async (req, res, next) => {
 app.use('/', indexRouter);
 app.use('/registration', registrationRouter)
 app.use('/sign-in', signInRouter);
-app.use('/log-out', logOutRouter)
+app.use('/log-out', logOutRouter);
+app.use('/new-message', newMessageRouter)
+app.use('/member', memberRouter)
+app.use('/message', messageRouter);
 
 passport.use(local)
 passport.serializeUser((user, done) => {

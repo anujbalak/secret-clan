@@ -1,0 +1,26 @@
+<%- include ('../partials/header', { title: 'Member'}) %> 
+    <main class="member">
+        <% if (locals.currentUser) { %>
+            <form action="/member" method="post">
+                <% if (!currentUser.member) {%>
+                    <label for="member">Enter membership secret code</label>
+                    <input type="text" name="member" id="member" placeholder="...secret code">  
+                    <p onclick="(e) => {e.classlist.add('hide')}" class="show">code is always <code>warrior cat</code></p>  
+                <% } %>  
+                <% if (!currentUser.admin) {%>
+                    <label for="admin">Become an admin</label>
+                    <input type="checkbox" name="admin" id="admin" value='true'>
+                <% } %>  
+                <%- include('../partials/button', {
+                    btnType: 'submit',
+                    btnLabel: 'Become the sorcerer'
+                }) %>
+            </form>
+        <% } else { %>
+            <section>
+                <p>You need to login first</p>
+                <a href="/login">Login</a>
+            </section>
+        <% } %>   
+    </main>
+<%- include ('../partials/footer') %>

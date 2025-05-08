@@ -1,16 +1,83 @@
 <div class="messages">
     <% if (locals.messages) { %>
+        <% if (locals.currentUser) { %>
+            <% if (!currentUser.member) {%> 
+                <p>You need to be member to see the usernames</p>   
+            <% } %>
+            <% if (!currentUser.admin) {%> 
+                <p>In order to delete others message and edit your message you need to be an admin</p>   
+            <% } %> 
+        <% } %>
         <% messages.forEach(message => { %>
+            <div class="message container">
             <div class="message body">
-                <h2 class="message title"><%= message.title %></h2>
-                <p class="message text"><%= message.text %></p>
+                <div class="title-container">
+                    <% if (locals.isTitleEdit && locals.editedMessageId == message.id) { %>
+                        <form action="/message/edit/title/<%= message.id %>" method="post">
+                            <input type="text" name="title" id="title" value="<%= message.title %>" required>
+                            <%- include('../partials/button', {
+                                btnType: 'submit',
+                                btnLabel: 'Submit'
+                            }) %>
+                        </form>
+                    <% } else { %>
+                        <h2 class="message title"><%= message.title %></h2>
+                    <% } %> 
+                    <% if (locals.currentUser) { %>
+                        <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTextEdit && !locals.isTitleEdit) {%>
+                            <form action="/message/edit/title/<%=message.id%>" method="get">
+                                <button type="submit">
+                                    <img src="/icons/pencil.svg" alt="">
+                                </button>
+                            </form>    
+                        <% } %> 
+                    <% } %>     
+                </div>
+                <div class="text-container">
+                    <% if (locals.isTextEdit && locals.editedMessageId == message.id) { %>
+                        <form action="/message/edit/text/<%= message.id %>" method="post">
+                            <input type="text" name="text" id="text" value="<%= message.text %>">
+                            <%- include('../partials/button', {
+                                btnType: 'submit',
+                                btnLabel: 'Submit'
+                            }) %>
+                        </form>
+                    <% } else { %>
+                        <p class="message text"><%= message.text %></p>
+                    <% } %> 
+                    <% if (locals.currentUser) { %>
+                        <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTitleEdit && !locals.isTextEdit) {%>
+                            <form action="/message/edit/text/<%=message.id%>" method="get">
+                                <button type="submit">
+                                    <img src="/icons/pencil.svg" alt="">
+                                </button>
+                            </form>    
+                        <% } %> 
+                    <% } %>   
+                </div>
             </div>
             <% if (locals.currentUser) { %>
-                <div class="message user">
-                    <h2 class="message username"><%= message.firstname %></h2>
-                    <p class="message timestamp"><%= message.time %></p>
-                </div>    
-            <% } %>  
+                <% if (currentUser.member) {%> 
+                    <div class="message user">
+                        <h2 class="message username"><%= message.firstname %></h2>
+                        <p class="message timestamp"><%= message.time %></p>
+                    </div>    
+                <% } else { %>
+                    <div class="message user">
+                        <h2 class="message username">User: ***</h2>
+                    </div>
+                <% } %> 
+            <% } %> 
+            <% if (locals.currentUser) { %>
+                <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTitleEdit && !locals.isTextEdit) {%>
+                    <form action="/message/delete/<%=message.id%>" method="post">
+                        <button type="submit">
+                            <img src="/icons/bin.svg" alt="">
+                        </button>
+                    </form>    
+                <% } %> 
+            <% } %> 
+            </div>
         <% }); %>     
     <% } %>  
 </div>
