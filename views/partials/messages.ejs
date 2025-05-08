@@ -24,7 +24,7 @@
                         <h2 class="message title"><%= message.title %></h2>
                     <% } %> 
                     <% if (locals.currentUser) { %>
-                        <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTextEdit && !locals.isTitleEdit) {%>
+                        <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTextEdit && !locals.isTitleEdit && message.user_id == currentUser.id) {%>
                             <form action="/message/edit/title/<%=message.id%>" method="get">
                                 <button type="submit">
                                     <img src="/icons/pencil.svg" alt="">
@@ -46,7 +46,7 @@
                         <p class="message text"><%= message.text %></p>
                     <% } %> 
                     <% if (locals.currentUser) { %>
-                        <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTitleEdit && !locals.isTextEdit) {%>
+                        <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTitleEdit && !locals.isTextEdit && message.user_id == currentUser.id) {%>
                             <form action="/message/edit/text/<%=message.id%>" method="get">
                                 <button type="submit">
                                     <img src="/icons/pencil.svg" alt="">
