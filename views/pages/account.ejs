@@ -1,0 +1,12 @@
+<%- include ('../partials/header', { title: 'Account'}) %>
+    <main class="account">
+        <% if (locals.currentUser) { %>
+            <h3>Your email: <%= currentUser.email %></h3>
+            <h3><button><a href="/log-out">Log-out</a></button></h3>
+        <% } else {%>
+            <nav>
+                <h3>You need to <a href="/registration" or >Register</a> or <a href="/sign-in">Sign-in</a> first</h3>
+            </nav>
+        <% } %> 
+    </main>
+<%- include ('../partials/footer') %>

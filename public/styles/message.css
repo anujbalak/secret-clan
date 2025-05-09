@@ -1,0 +1,72 @@
+.messages {
+    display: grid;
+    margin: 1em;
+    gap: 1em;
+    justify-content: center;
+}
+
+.message.container {
+    display: flex;
+    gap: 10px;
+    border: 3px solid black;
+    background-color: #b29d3d;
+    border-radius: 1em;
+    padding: 1em;
+    align-items: center;
+    max-width: 1000px;
+}
+
+.message.body {
+    flex: 70%;
+}
+
+.message.user {
+    flex: 25%;
+}
+
+.title-container, .text-container, .title-container form, .text-container form {
+    display: flex;
+    align-items: center;
+}
+
+.title-container form, .text-container form {
+    margin: 10px 0;
+    gap: 10px;
+}
+
+.title-container, .text-container {
+    gap: 0;
+}
+
+.message.title {
+    font-size: 2rem;
+}
+
+.title-container .edit.icon, .text-container .edit.icon, .delete.button {
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    transition: none;
+    margin: 0;
+    font-size: initial;
+}
+
+.edit.icon:hover, .edit.icon:focus, .delete.button:focus, .delete.button:hover {
+    transform: none;
+}
+
+.title-container img, .text-container img {
+    transform: scale(0.3);
+}
+
+.message.user {
+    display: grid;
+    gap: 1em;
+}
+
+
+
+.delete.img {
+    filter: grayscale(0.5);
+    transform: scale(0.5);
+}

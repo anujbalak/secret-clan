@@ -3,11 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/header.css" type="text/css">
+    <link rel="stylesheet" href="/styles/home.css" type="text/css">
+    <link rel="stylesheet" href="/styles/button.css" type="text/css">
+    <link rel="stylesheet" href="/styles/input.css" type="text/css">
+    <link rel="stylesheet" href="/styles/link.css" type="text/css">
+    <link rel="stylesheet" href="/styles/message.css" type="text/css">
     <title><% locals.title %></title>
 </head>
 <body>
 <header>
-    <h1>SECRET CLAN</h1>
+    <h1><a href="/">SECRET CLAN</a></h1>
     <% if (locals.currentUser) { %>
         <h2><a href="/account">
             Account

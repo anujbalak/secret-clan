@@ -1,6 +1,5 @@
 <%- include ('../partials/header', { title: 'Home'}) %> 
 <% if (locals.currentUser) {%>
-    <h3><%= currentUser.firstname %> </h3>
     <nav class="links">
         <h3 class="new-message-link link"><a href="/new-message">New Message</a></h3>
         <% if(!currentUser.member || !currentUser.admin) { %> 

@@ -1,0 +1,21 @@
+
+input, textarea {
+    font-size: 1.2rem;
+    border-radius: 7px;
+    border: 2px solid black;
+    padding: 10px 1em;
+    background-color: rgb(220, 218, 215);
+}
+
+.error::before {
+    content: '◈ ';
+    color: rgb(136, 5, 27);
+}
+.error {
+    margin: 0;
+    padding: 1em;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    background-color: #b29d3d;
+}

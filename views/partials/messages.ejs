@@ -2,10 +2,10 @@
     <% if (locals.messages) { %>
         <% if (locals.currentUser) { %>
             <% if (!currentUser.member) {%> 
-                <p>You need to be member to see the usernames</p>   
+                <p class="error">You need to be member to see the usernames</p>   
             <% } %>
             <% if (!currentUser.admin) {%> 
-                <p>In order to delete others message and edit your message you need to be an admin</p>   
+                <p class="error">In order to delete other's messages and edit your messages, you need to be an admin</p>   
             <% } %> 
         <% } %>
         <% messages.forEach(message => { %>
@@ -26,7 +26,7 @@
                     <% if (locals.currentUser) { %>
                         <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTextEdit && !locals.isTitleEdit && message.user_id == currentUser.id) {%>
                             <form action="/message/edit/title/<%=message.id%>" method="get">
-                                <button type="submit">
+                                <button type="submit" class="edit icon">
                                     <img src="/icons/pencil.svg" alt="">
                                 </button>
                             </form>    
@@ -36,7 +36,7 @@
                 <div class="text-container">
                     <% if (locals.isTextEdit && locals.editedMessageId == message.id) { %>
                         <form action="/message/edit/text/<%= message.id %>" method="post">
-                            <input type="text" name="text" id="text" value="<%= message.text %>">
+                            <textarea type="text" name="text" id="text" value="<%= message.text %>"><%= message.text %></textarea>
                             <%- include('../partials/button', {
                                 btnType: 'submit',
                                 btnLabel: 'Submit'
@@ -48,7 +48,7 @@
                     <% if (locals.currentUser) { %>
                         <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTitleEdit && !locals.isTextEdit && message.user_id == currentUser.id) {%>
                             <form action="/message/edit/text/<%=message.id%>" method="get">
-                                <button type="submit">
+                                <button type="submit" class="edit icon"> 
                                     <img src="/icons/pencil.svg" alt="">
                                 </button>
                             </form>    
@@ -70,9 +70,9 @@
             <% } %> 
             <% if (locals.currentUser) { %>
                 <% if (locals.currentUser.member && locals.currentUser.admin && !locals.isTitleEdit && !locals.isTextEdit) {%>
-                    <form action="/message/delete/<%=message.id%>" method="post">
-                        <button type="submit">
-                            <img src="/icons/bin.svg" alt="">
+                    <form action="/message/delete/<%=message.id%>" method="post" class="delete form">
+                        <button type="submit" class="delete button">
+                            <img src="/icons/bin.svg" alt="" class="delete img">
                         </button>
                     </form>    
                 <% } %> 

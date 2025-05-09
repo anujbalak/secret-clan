@@ -7,7 +7,7 @@ export const titleValidationChain = () =>
         .isLength({max: 30, min: 3}).withMessage('Title length should be between 3 to 30 characters')
 
 export const textValidationChain = () =>
-    body('title').trim()
+    body('text').trim()
         .isAlpha("en-US", {ignore: " "}).withMessage('Enter your message')
 
 

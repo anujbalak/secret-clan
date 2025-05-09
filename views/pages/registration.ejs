@@ -11,7 +11,7 @@
 
 <main class="registration">
     <h2 class="guide heading">Register to join the clan.</h2>
-    <form action="/registration" method="post">
+    <form action="/registration" method="post" class="input-box">
 
         <%# First name %>
         <label for="firstname">Firstname</label>
@@ -105,6 +105,11 @@
             btnType: 'submit',
             btnLabel: 'Submit'
         }) %> 
+        <div class="change-login">
+            <p>
+                Have an account? <a href="/sign-in">Sign-in</a>
+            </p>
+        </div>
     </form>  
 </main>
 <%- include ('../partials/footer') %>

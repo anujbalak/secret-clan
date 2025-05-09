@@ -1,0 +1,20 @@
+header {
+    padding-bottom: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: rgb(220, 218, 215);
+}
+
+h1 > a {
+    font-size: calc(4vw + 3rem);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+header > div, header > h2 {
+    display: flex;
+    gap: 1em;
+    margin: 0 10px;
+    align-self: last baseline;
+}

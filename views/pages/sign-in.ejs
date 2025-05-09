@@ -9,8 +9,8 @@
     <% } %>
 <% } %>  
 <main class="log-in">
-    <h2 guide heading>Login to chat</h2>
-    <form action="/sign-in" method="post">
+    <h2 class="guide heading">Login to chat</h2>
+    <form action="/sign-in" method="post" class="input-box">
         <%# Email %>
         <label for="email">email</label>
         <input 
@@ -50,6 +50,11 @@
             btnType: 'submit',
             btnLabel: 'Log in'
         }) %>
+        <div class="change-login">
+            <p>
+                Don't Have an account? <a href="/registration">Register</a>
+            </p>
+        </div>
     </form>
 </main>
 

@@ -6,10 +6,12 @@ export const postDeleteMessage = async ( req, res) => {
     try {
         const { messageId } = req.params;
         const allMessages = await getAllMessages();
-        if (!messageId || messageId > allMessages.length) {
+        console.log(messageId, allMessages.length)
+        if (!messageId) {
             return
         }
         await deleteMessage(Number(messageId));
+        console.log('deleted')
         res.redirect('/')
     } catch (error) {
         console.error(error);
@@ -48,7 +50,8 @@ export const postEditTitle = [
             
            await updateTitle(title, Number(messageId));
            const allMessages = await getAllMessagesAndUsernames();
-           res.render('pages/index', {isTitleEdit: false, messages: allMessages});
+        //    res.render('pages/index', {isTitleEdit: false, messages: allMessages});
+           res.redirect('/')
         } catch (error) {
             console.error(error)
         }

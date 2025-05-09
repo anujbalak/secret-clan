@@ -1,0 +1,17 @@
+a {
+    color: rgb(19, 19, 19);
+    cursor: pointer;
+    font-size: 1.8rem;
+}
+
+a:hover, a:focus {
+    text-decoration: dotted;
+}
+
+.links {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 1em;
+    gap: 1em;
+}
+

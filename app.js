@@ -4,8 +4,6 @@ import path from 'node:path'
 import url from 'node:url'
 import passport from 'passport';
 import session from 'express-session';
-import pkg from 'passport-local'
-const LocalStrategy = pkg.Strategy;
 
 import indexRouter from './routes/indexRouter.js';
 import registrationRouter from './routes/registrationRouter.js';
@@ -16,6 +14,7 @@ import logOutRouter from './routes/log-outRouter.js';
 import newMessageRouter from './routes/newMessageRouter.js';
 import memberRouter from './routes/memberRouter.js';
 import messageRouter from './routes/messageRouter.js';
+import accountRouter from './routes/accountRouter.js';
 
 
 const app = express();
@@ -28,7 +27,8 @@ const viewsFolder = path.join(__dirname, 'views');
 app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
 app.set('views', viewsFolder)
-app.use(express.static(path.join(__dirname, 'public')));
+const assetsPath = path.join(__dirname, 'public')
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.use(session({
     secret: process.env.SECRET,
@@ -59,6 +59,7 @@ app.use('/log-out', logOutRouter);
 app.use('/new-message', newMessageRouter)
 app.use('/member', memberRouter)
 app.use('/message', messageRouter);
+app.use('/account', accountRouter);
 
 passport.use(local)
 passport.serializeUser((user, done) => {
