@@ -3,6 +3,10 @@ import 'dotenv/config'
 
 const { Pool } = pg;
 
+export const remote_con = {
+    connectionString: process.env.REMOTE_DATABASE_URL
+}
+
 export const con = {
     host: process.env.LOCAL_HOST,
     database: process.env.LOCAL_DATABASE,
@@ -11,6 +15,6 @@ export const con = {
     port: process.env.LOCAL_PORT,
 }
 
-const pool = new Pool(con)
+const pool = new Pool(remote_con)
 
 export default pool;

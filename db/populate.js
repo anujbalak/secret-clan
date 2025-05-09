@@ -1,6 +1,6 @@
 import { Client } from "pg";
 import bcrypt from 'bcryptjs'
-import { con } from "./pool.js";
+import { con, remote_con } from "./pool.js";
 
 const generate_users_table = `
 CREATE TABLE IF NOT EXISTS users (
@@ -72,7 +72,7 @@ const main = async () => {
 
 const reset = async () => {
     console.log('resetting...')
-    const client = new Client(con);
+    const client = new Client(remote_con);
     await client.connect();
     await client.query('DROP TABLE IF EXISTS users;')
     await client.query("DROP TABLE IF EXISTS messages;")
